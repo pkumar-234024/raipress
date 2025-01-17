@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/navbar/Navbar';
-import CardCategory from './components/cardcategory/CardCategory';
-import ImageView from './components/imageview/ImageView';
-import Footer from './components/footer/Footer';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import ProductListing from "./components/productlisting/ProductListing";
+import Footer from "./components/footer/Footer";
+import Home from "./components/home/Home";
+import "./App.css";
 
 function App() {
   return (
@@ -12,10 +12,11 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<CardCategory />} />
-          <Route path="/image/:id" element={<ImageView />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/category/:categoryId" element={<ProductListing />} />
+          {/* Add other routes as needed */}
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Router>
   );

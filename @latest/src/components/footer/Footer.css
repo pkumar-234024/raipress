@@ -1,15 +1,20 @@
 .footer {
-    width: 100%;
+    margin: 0;
+    padding: 0.001rem 0.0011rem;
     background-color: #333;
-    color: white;
-    padding: 2rem 0;
-    margin-top: auto;
+    color: rgb(252, 19, 19);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    box-sizing: border-box;
 }
 
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -18,7 +23,7 @@
 
 .footer-section {
     flex: 1;
-    min-width: 250px;
+    min-width: 50px;
 }
 
 .footer-section h4 {
@@ -36,8 +41,35 @@
 }
 
 .footer-bottom {
-    text-align: center;
-    margin-top: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto 0;
     padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        width: 100%;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* Add this to handle potential horizontal scrollbar */
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }

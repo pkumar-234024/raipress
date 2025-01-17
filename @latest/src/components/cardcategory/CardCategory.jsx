@@ -1,27 +1,35 @@
-import React from 'react';
-import { categoryData } from '../../data/categoryData';
-import './CardCategory.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./CardCategory.css";
 
-const CardCategory = () => {
+const CardCategory = ({
+  categoryImageUrl,
+  categoryName,
+  categoryDescription,
+  categoryId,
+}) => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryName) => {
+    navigate(`/category/${categoryName.toLowerCase()}`);
+  };
+
   return (
     <div className="card-category-container">
-      <h2 className="category-title">Our Print Categories</h2>
-      <div className="categories-grid">
-        {categoryData.map((category) => (
-          <div key={category.id} className="category-card">
-            <div className="category-left">
-              <div className="category-image">
-                <img src={category.image} alt={category.name} />
-              </div>
-              <div className="basic-info">
-                <h3>{category.name}</h3>
-                <p className="description">{category.description}</p>
-                <p className="price-range">{category.priceRange}</p>
-                <button className="order-button">For more click here</button>
-              </div>
-            </div>
+      <div
+        key={categoryId}
+        className="category-card"
+        onClick={() => handleCategoryClick(categoryName)}
+      >
+        <div className="category-left">
+          <div className="category-image">
+            <img src={categoryImageUrl} alt={categoryName} />
           </div>
-        ))}
+          <div className="basic-info">
+            <h3>{categoryName}</h3>
+            <p className="description">{categoryDescription}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

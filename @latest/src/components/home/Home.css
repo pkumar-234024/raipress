@@ -10,74 +10,80 @@ body {
 }
 
 .card-category-container {
-    width: 400px;
-    height: 600px;
-    padding: 20px;
-    box-sizing: border-box;
+    padding: 0rem;
+    width: 100%;
 }
 
 .category-title {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     color: #333;
     font-size: 2rem;
+    margin-top: 3rem;
 }
 
 .categories-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
     width: 100%;
-    padding: 0;
-    margin: 0 auto;
 }
 
 .category-card {
-    width: 100%;
-    height: 100%;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     cursor: pointer;
-    transition: transform 0.2s ease;
 }
 
 .category-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .category-left {
-    height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 1rem;
 }
 
 .category-image {
     width: 100%;
-    height: 400px;
-    overflow: hidden;
+    height: 180px;
+    margin-bottom: 1rem;
 }
 
 .category-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 4px;
 }
 
 .basic-info {
-    padding: 20px;
-    height: calc(100% - 400px);
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .basic-info h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+    font-size: 1.2rem;
 }
 
 .description {
-    margin: 0;
-    font-size: 1rem;
     color: #666;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
 
 .price-range {
@@ -118,7 +124,7 @@ body {
     }
 
     .category-image {
-        height: 400px;
+        height: 200px;
     }
 }
 
@@ -153,7 +159,7 @@ body {
     }
 
     .category-image {
-        height: 400px;
+        height: 160px;
     }
 
     .card-category-container {
@@ -166,7 +172,7 @@ body {
 /* Small mobile devices */
 @media (max-width: 320px) {
     .category-image {
-        height: 400px;
+        height: 140px;
     }
 
     .basic-info h3 {
