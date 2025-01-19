@@ -4,6 +4,7 @@ import Navbar from "./components/navbar/Navbar";
 import ProductListing from "./components/productlisting/ProductListing";
 import Home from "./components/home/Home";
 import ProductDetail from "./components/productdetail/ProductDetail";
+import AdminPanel from "./components/admin/AdminPanel";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             element={<ProductListing />}
           />
           <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route path="/admin" element={<AdminPanel />} />
           {/* Add other routes as needed */}
         </Routes>
         {/* <Footer /> */}
