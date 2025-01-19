@@ -2,18 +2,23 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import ProductListing from "./components/productlisting/ProductListing";
-import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
+import ProductDetail from "./components/productdetail/ProductDetail";
 import "./App.css";
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/category/:categoryId" element={<ProductListing />} />
+          <Route path="/home" element={<Home />} />
+          <Route
+            path="/products/category/:categoryId"
+            element={<ProductListing />}
+          />
+          <Route path="/product/:productId" element={<ProductDetail />} />
           {/* Add other routes as needed */}
         </Routes>
         {/* <Footer /> */}

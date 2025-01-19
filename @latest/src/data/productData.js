@@ -1,3 +1,5 @@
+import masterImage from '../assets/weddingcard/images.jfif';
+
 export const productData = 
 [
     {
@@ -9,7 +11,7 @@ export const productData =
         dimensions: "24\"W x 36\"H",
         color: ["Red", "Blue", "Yellow"],
         type: "canvas",
-        image: "/images/abstract-canvas-1.jpg"
+        image: masterImage
     },
     {
         id: 2,
@@ -20,7 +22,7 @@ export const productData =
         dimensions: "30\"W x 40\"H",
         color: ["Green", "Brown"],
         type: "basic",
-        image: "/images/wall-print-2.jpg"
+        image: masterImage
     },
     {
         id: 3,
@@ -31,7 +33,7 @@ export const productData =
         dimensions: "28\"W x 42\"H",
         color: ["Brown"],
         type: "decor",
-        image: "/images/wooden-frame-mirror.jpg"
+        image: masterImage
     },
     {
         id: 4,
@@ -42,7 +44,7 @@ export const productData =
         dimensions: "18\"W x 65\"H",
         color: ["Black", "White"],
         type: "lighting",
-        image: "/images/modern-floor-lamp.jpg"
+        image: masterImage
     },
     {
         id: 5,
@@ -53,7 +55,7 @@ export const productData =
         dimensions: "40\"W x 30\"H",
         color: ["Black", "White"],
         type: "basic",
-        image: "/images/cityscape-wall-art.jpg"
+        image: masterImage
     },
     {
         id: 6,
@@ -64,7 +66,7 @@ export const productData =
         dimensions: "Small: 8\"H, Large: 12\"H",
         color: ["White", "Gray"],
         type: "decor",
-        image: "/images/ceramic-vase-set.jpg"
+        image: masterImage
     },
     {
         id: 7,
@@ -75,7 +77,7 @@ export const productData =
         dimensions: "12\"W x 20\"H",
         color: ["Black", "Bronze"],
         type: "lighting",
-        image: "/images/industrial-table-lamp.jpg"
+        image: masterImage
     },
     {
         id: 8,
@@ -86,7 +88,7 @@ export const productData =
         dimensions: "5' x 7'",
         color: ["Blue", "Beige"],
         type: "rug",
-        image: "/images/geometric-area-rug.jpg"
+        image: masterImage
     },
     {
         id: 9,
@@ -97,7 +99,7 @@ export const productData =
         dimensions: "6' x 9'",
         color: ["Red", "Cream"],
         type: "rug",
-        image: "/images/vintage-persian-rug.jpg"
+        image:masterImage
     },
     {
         id: 10,
@@ -108,6 +110,6 @@ export const productData =
         dimensions: "18\"W x 18\"H",
         color: ["Gray", "Yellow"],
         type: "decor",
-        image: "/images/decorative-throw-pillows.jpg"
+        image: masterImage
     }
 ];

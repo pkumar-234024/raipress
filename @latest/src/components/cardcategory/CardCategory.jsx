@@ -10,8 +10,8 @@ const CardCategory = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleCategoryClick = (categoryName) => {
-    navigate(`/category/${categoryName.toLowerCase()}`);
+  const handleCategoryClick = () => {
+    navigate(`/products/category/${categoryId}`);
   };
 
   return (
@@ -19,9 +19,9 @@ const CardCategory = ({
       <div
         key={categoryId}
         className="category-card"
-        onClick={() => handleCategoryClick(categoryName)}
+        onClick={() => handleCategoryClick(categoryId)}
       >
-        <div className="category-left">
+        <div className="category-info">
           <div className="category-image">
             <img src={categoryImageUrl} alt={categoryName} />
           </div>

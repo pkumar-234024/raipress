@@ -12,7 +12,7 @@ const Home = () => {
   };
 
   return (
-    <div className="card-category-container">
+    <div>
       <h2 className="category-title">Our Print Categories</h2>
       <div className="categories-grid">
         {categoryData.map((category) => (
