@@ -25,9 +25,9 @@ const ImageCard = ({
         <h3 className="image-card-title">{title}</h3>
         <p className="image-card-description">{description}</p>
         <div className="image-card-details">
-          <p className="image-card-price">${price}</p>
+          <p className="image-card-price">₹{price}</p>
           <p className="image-card-color">
-            <span className="color-label">Color:</span> {color}
+            <span className="color-label">Color:</span> {color[0]}
           </p>
         </div>
       </div>
