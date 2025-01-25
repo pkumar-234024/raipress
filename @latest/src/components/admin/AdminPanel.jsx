@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminPanel.css";
 import {
   categoryData,
   addCategory,
   getAllCategories,
+  deleteCategory,
 } from "../../data/categoryData";
 import { productData as products } from "../../data/productData";
 import { galleryData } from "../../data/galleryData";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("category");
+  const [showCategoryForm, setShowCategoryForm] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const [categoryForm, setCategoryForm] = useState({
     name: "",
@@ -25,28 +28,50 @@ const AdminPanel = () => {
     images: [],
   });
 
+  useEffect(() => {
+    // Load categories when component mounts
+    setCategories(getAllCategories());
+  }, []);
+
   const handleCategorySubmit = (e) => {
     e.preventDefault();
     if (!categoryForm.name || !categoryForm.image) {
       alert("Category name and image are required!");
       return;
     }
-    const newCategory = {
-      id: categoryData.length + 1,
-      name: categoryForm.name,
-      image: categoryForm.image,
-      description: categoryForm.description,
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const newCategory = {
+        id: Date.now(),
+        name: categoryForm.name,
+        image: reader.result,
+        description: categoryForm.description,
+      };
+
+      addCategory(newCategory);
+      setCategories(getAllCategories()); // Update the categories list
+      setShowCategoryForm(false); // Hide the form after submission
+      
+      setCategoryForm({
+        name: "",
+        description: "",
+        image: null,
+      });
     };
+    reader.readAsDataURL(categoryForm.image);
+  };
 
-    addCategory(newCategory);
-    console.log("Category Data:", getAllCategories());
-
-    // Reset form after submission
-    setCategoryForm({
-      name: "",
-      description: "",
-      image: null,
-    });
+  const handleDeleteCategory = (id) => {
+    if (window.confirm('Are you sure you want to delete this category?')) {
+      const isDeleted = deleteCategory(id);
+      if (isDeleted) {
+        // Refresh the categories list
+        setCategories(getAllCategories());
+        // Force a page refresh
+        window.location.reload();
+      }
+    }
   };
 
   const handleCategoryImageUpload = (e) => {
@@ -72,7 +97,7 @@ const AdminPanel = () => {
           className={`tab ${activeTab === "category" ? "active" : ""}`}
           onClick={() => setActiveTab("category")}
         >
-          Create Category
+          Categories
         </button>
         <button
           className={`tab ${activeTab === "product" ? "active" : ""}`}
@@ -90,58 +115,119 @@ const AdminPanel = () => {
 
       <div className="admin-content">
         {activeTab === "category" && (
-          <form onSubmit={handleCategorySubmit} className="admin-form">
-            <h2>Create Category</h2>
-            <div className="form-group">
-              <label htmlFor="categoryName">Category Name *</label>
-              <input
-                id="categoryName"
-                type="text"
-                placeholder="Category Name"
-                value={categoryForm.name}
-                required
-                onChange={(e) =>
-                  setCategoryForm({ ...categoryForm, name: e.target.value })
-                }
-              />
+          <div className="category-management">
+            <div className="category-header">
+              <h2>Categories</h2>
+              <button 
+                className="add-category-btn"
+                onClick={() => setShowCategoryForm(true)}
+              >
+                + Add Category
+              </button>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="categoryImage">Category Image *</label>
-              <input
-                id="categoryImage"
-                type="file"
-                accept="image/*"
-                required
-                onChange={handleCategoryImageUpload}
-              />
-              {categoryForm.image && (
-                <div className="image-preview single-preview">
-                  <img
-                    src={URL.createObjectURL(categoryForm.image)}
-                    alt="Category preview"
+            {/* Categories List */}
+            <div className="categories-list">
+              {categories.map((category) => (
+                <div key={category.id} className="category-item">
+                  <img 
+                    src={category.image} 
+                    alt={category.name} 
+                    className="category-thumbnail"
                   />
+                  <div className="category-info">
+                    <h3>{category.name}</h3>
+                    <p>{category.description}</p>
+                  </div>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDeleteCategory(category.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
-              )}
+              ))}
             </div>
 
-            <div className="form-group">
-              <label htmlFor="categoryDescription">Category Description</label>
-              <textarea
-                id="categoryDescription"
-                placeholder="Category Description"
-                value={categoryForm.description}
-                onChange={(e) =>
-                  setCategoryForm({
-                    ...categoryForm,
-                    description: e.target.value,
-                  })
-                }
-              />
-            </div>
+            {/* Category Form Modal */}
+            {showCategoryForm && (
+              <div className="modal-overlay">
+                <div className="modal-content">
+                  <form onSubmit={handleCategorySubmit} className="admin-form">
+                    <div className="modal-header">
+                      <h2>Create Category</h2>
+                      <button 
+                        type="button" 
+                        className="close-btn"
+                        onClick={() => setShowCategoryForm(false)}
+                      >
+                        ×
+                      </button>
+                    </div>
+                    
+                    <div className="form-group">
+                      <label htmlFor="categoryName">Category Name *</label>
+                      <input
+                        id="categoryName"
+                        type="text"
+                        placeholder="Category Name"
+                        value={categoryForm.name}
+                        required
+                        onChange={(e) =>
+                          setCategoryForm({ ...categoryForm, name: e.target.value })
+                        }
+                      />
+                    </div>
 
-            <button type="submit">Create Category</button>
-          </form>
+                    <div className="form-group">
+                      <label htmlFor="categoryImage">Category Image *</label>
+                      <input
+                        id="categoryImage"
+                        type="file"
+                        accept="image/*"
+                        required
+                        onChange={handleCategoryImageUpload}
+                      />
+                      {categoryForm.image && (
+                        <div className="image-preview single-preview">
+                          <img
+                            src={categoryForm.image instanceof File ? URL.createObjectURL(categoryForm.image) : categoryForm.image}
+                            alt="Category preview"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="categoryDescription">Category Description</label>
+                      <textarea
+                        id="categoryDescription"
+                        placeholder="Category Description"
+                        value={categoryForm.description}
+                        onChange={(e) =>
+                          setCategoryForm({
+                            ...categoryForm,
+                            description: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="form-actions">
+                      <button type="submit">Create Category</button>
+                      <button 
+                        type="button" 
+                        onClick={() => setShowCategoryForm(false)}
+                        className="cancel-btn"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+          </div>
         )}
 
         {activeTab === "product" && (
