@@ -1982,3 +1982,118 @@ ALTER TABLE [Product] ALTER COLUMN [ProductsImage] varbinary(max) NOT NULL;
 2025-01-26 23:40:01.702 +05:30 [INF] Executed DbCommand (317ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
 VALUES (N'20250126180946_Third', N'8.0.0');
+2025-01-26 23:40:13.168 +05:30 [INF] Registered 16 endpoints in 858 milliseconds.
+2025-01-26 23:40:16.438 +05:30 [INF] Executed DbCommand (301ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-01-26 23:40:16.754 +05:30 [INF] Executed DbCommand (305ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-01-26 23:40:17.233 +05:30 [INF] Executed DbCommand (312ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Contributors] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-01-26 23:40:17.337 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-26 23:40:17.343 +05:30 [INF] Hosting environment: Development
+2025-01-26 23:40:17.343 +05:30 [INF] Content root path: D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web
+2025-01-26 23:40:17.387 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger - null null
+2025-01-26 23:40:17.574 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger - 302 null null 190.9294ms
+2025-01-26 23:40:18.141 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/index.html - null null
+2025-01-26 23:40:18.285 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/index.html - 200 null text/html; charset=utf-8 144.4461ms
+2025-01-26 23:40:18.391 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-26 23:40:18.398 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - 200 13754 application/javascript; charset=utf-8 7.1934ms
+2025-01-26 23:40:18.489 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - null null
+2025-01-26 23:40:18.541 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - 200 null text/javascript; charset=UTF-8 51.9885ms
+2025-01-26 23:40:18.666 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - null null
+2025-01-26 23:40:18.680 +05:30 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-26 23:40:19.335 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - 200 null application/json; charset=utf-8 669.0379ms
+2025-01-26 23:40:23.274 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - null null
+2025-01-26 23:40:23.276 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:40:23.277 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - 204 null null 3.5583ms
+2025-01-26 23:40:23.404 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 767768
+2025-01-26 23:40:23.405 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:40:23.406 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-01-26 23:40:23.409 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:40:44.339 +05:30 [INF] Executed DbCommand (15,711ms) [Parameters=[@p0='?' (Size = 500), @p1='?' (Size = -1) (DbType = Binary), @p2='?' (Size = 255), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ProductCategory] ([CategoryDescription], [CategoryImage], [CategoryName], [CreateTime])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-01-26 23:40:47.369 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:40:47.805 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 200 null application/json 24401.4632ms
+2025-01-26 23:40:48.463 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:40:48.463 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:40:48.463 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:40:51.165 +05:30 [INF] Executed DbCommand (2,657ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:40:57.471 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:40:57.716 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 9253.0356ms
+2025-01-26 23:41:05.066 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:41:05.066 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:05.066 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:06.055 +05:30 [INF] Executed DbCommand (986ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:41:07.189 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:07.371 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 2305.6757ms
+2025-01-26 23:41:07.374 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:41:07.375 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:07.375 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:07.682 +05:30 [INF] Executed DbCommand (302ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:41:07.748 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:41:07.749 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:07.750 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:07.771 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:07.771 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 23.3614ms
+2025-01-26 23:41:07.972 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:07.975 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 600.6333ms
+2025-01-26 23:41:08.379 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:41:08.379 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:08.380 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:08.381 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:08.382 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 2.6131ms
+2025-01-26 23:41:14.937 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:41:14.938 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:14.938 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:15.326 +05:30 [INF] Executed DbCommand (385ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:41:15.652 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:15.722 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 784.6603ms
+2025-01-26 23:41:15.807 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:41:15.807 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:15.807 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:16.112 +05:30 [INF] Executed DbCommand (303ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:41:16.157 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:41:16.158 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:16.158 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:16.158 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:41:16.161 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:16.161 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 3.8198ms
+2025-01-26 23:41:16.271 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 463.7543ms
+2025-01-26 23:41:16.524 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:41:16.524 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:41:16.524 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:16.526 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:41:16.526 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 2.6066ms

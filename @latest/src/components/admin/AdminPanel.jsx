@@ -13,7 +13,6 @@ import {
   updateProduct,
   createProduct,
   getProductById,
-  productData
 } from "../../data/productData";
 import { galleryData } from "../../data/galleryData";
 import { 
@@ -31,8 +30,8 @@ const AdminPanel = () => {
   const [editingCategory, setEditingCategory] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [additionalImages, setAdditionalImages] = useState([]);
   const [productImages, setProductImages] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [categoryForm, setCategoryForm] = useState({
     name: "",
@@ -43,43 +42,70 @@ const AdminPanel = () => {
   const [productForm, setProductForm] = useState({
     name: "",
     description: "",
-    price: "",
     category: "",
-    images: [],
+    image: null,
   });
 
+  // Fetch categories only when category tab is active
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const categoriesData = await getAllCategories();
-        setCategories(categoriesData);
-        const productsData = await getAllProducts();
-        setProducts(productsData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        // Fallback to initial data if API fails
-        setCategories(categoryData());
+    const fetchCategories = async () => {
+      if (activeTab === "category") {
+        try {
+          setLoading(true);
+          const categoriesData = await getAllCategories();
+          setCategories(categoriesData);
+        } catch (error) {
+          console.error('Error fetching categories:', error);
+          setCategories(categoryData());
+        } finally {
+          setLoading(false);
+        }
       }
     };
     
-    fetchData();
-  }, []);
+    fetchCategories();
+  }, [activeTab]);
 
+  // Fetch products only when product tab is active and we have categories
   useEffect(() => {
-    const loadProductImages = async () => {
-      if (selectedProduct) {
+    const fetchProducts = async () => {
+      if (activeTab === "product" && categories.length > 0) {
         try {
-          const images = await getProductImages(selectedProduct.id);
-          setProductImages(images);
+          setLoading(true);
+          // Fetch products for the first category initially
+          const productsData = await getAllProducts(categories[0].id);
+          setProducts(productsData);
         } catch (error) {
-          console.error('Error loading product images:', error);
-          alert('Failed to load product images');
+          console.error('Error fetching products:', error);
+          setProducts([]);
+        } finally {
+          setLoading(false);
         }
       }
     };
 
-    loadProductImages();
-  }, [selectedProduct]);
+    fetchProducts();
+  }, [activeTab, categories]);
+
+  // Fetch product images only when gallery tab is active and a product is selected
+  useEffect(() => {
+    const fetchProductImages = async () => {
+      if (activeTab === "gallery" && selectedProduct) {
+        try {
+          setLoading(true);
+          const images = await getProductImages(selectedProduct.id);
+          setProductImages(images);
+        } catch (error) {
+          console.error('Error loading product images:', error);
+          setProductImages([]);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchProductImages();
+  }, [activeTab, selectedProduct]);
 
   // Category handlers
   const handleCategorySubmit = (e) => {
@@ -285,30 +311,46 @@ const AdminPanel = () => {
     }
   };
 
+  // Update the tab change handler to clear unnecessary data
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    // Clear data when switching tabs
+    if (tab === "category") {
+      setProducts([]);
+      setProductImages([]);
+      setSelectedProduct(null);
+    } else if (tab === "product") {
+      setProductImages([]);
+      setSelectedProduct(null);
+    }
+  };
+
   return (
     <div className="admin-panel">
       <div className="admin-tabs">
         <button
           className={`tab ${activeTab === "category" ? "active" : ""}`}
-          onClick={() => setActiveTab("category")}
+          onClick={() => handleTabChange("category")}
         >
           Categories
         </button>
         <button
           className={`tab ${activeTab === "product" ? "active" : ""}`}
-          onClick={() => setActiveTab("product")}
+          onClick={() => handleTabChange("product")}
         >
           Products
         </button>
         <button
           className={`tab ${activeTab === "gallery" ? "active" : ""}`}
-          onClick={() => setActiveTab("gallery")}
+          onClick={() => handleTabChange("gallery")}
         >
           Product Gallery
         </button>
       </div>
 
       <div className="admin-content">
+        {loading && <div className="loading">Loading...</div>}
+        
         {activeTab === "category" && (
           <div className="category-management">
             <div className="category-header">
@@ -463,19 +505,15 @@ const AdminPanel = () => {
               {products.map((product) => (
                 <div key={`product-${product.id}`} className="item-card">
                   <div className="item-images">
-                    {product.images.map((image, index) => (
-                      <img 
-                        key={`${product.id}-${index}`}
-                        src={image} 
-                        alt={`${product.name} ${index + 1}`} 
-                        className="item-thumbnail"
-                      />
-                    ))}
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="item-thumbnail"
+                    />
                   </div>
                   <div className="item-info">
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
-                    <p className="price">${product.price}</p>
                     <p className="category">
                       Category: {categories.find(cat => cat.id === product.categoryId)?.name || 'Unknown'}
                     </p>
@@ -574,23 +612,23 @@ const AdminPanel = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="productImages">Product Images</label>
+                      <label htmlFor="productImages">Product Image</label>
                       <input
                         id="productImages"
                         type="file"
                         accept="image/*"
                         onChange={handleImageUpload}
                       />
-                      <div className="image-preview">
-                        {productForm.images.map((image, index) => (
-                          <div key={`${productForm.id}-${index}`} className="preview-item">
+                      {productForm.image && (
+                        <div className="image-preview">
+                          <div className="preview-item">
                             <img
-                              src={image instanceof File ? URL.createObjectURL(image) : image}
-                              alt={`Preview ${index}`}
+                              src={productForm.image instanceof File ? URL.createObjectURL(productForm.image) : productForm.image}
+                              alt="Product preview"
                             />
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className="form-actions">
