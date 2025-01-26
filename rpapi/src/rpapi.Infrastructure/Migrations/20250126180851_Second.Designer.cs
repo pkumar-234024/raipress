@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using rpapi.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using rpapi.Infrastructure.Data;
 namespace rpapi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250126180851_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +72,8 @@ namespace rpapi.Infrastructure.Migrations
 
                     b.Property<byte[]>("ProductsImage")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("varbinary(255)");
 
                     b.HasKey("Id");
 

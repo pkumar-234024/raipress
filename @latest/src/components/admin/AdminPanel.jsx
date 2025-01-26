@@ -8,15 +8,19 @@ import {
   categoryData,
 } from "../../data/categoryData";
 import {
-  productData,
-  addProduct,
   getAllProducts,
   deleteProduct,
   updateProduct,
-  addProductImages,
-  deleteProductImage,
+  createProduct,
+  getProductById,
+  productData
 } from "../../data/productData";
 import { galleryData } from "../../data/galleryData";
+import { 
+    getProductImages, 
+    addProductImage, 
+    deleteProductImage as deleteProductImageApi 
+} from "../../data/productImagesData";
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState("category");
@@ -28,6 +32,7 @@ const AdminPanel = () => {
   const [editingProduct, setEditingProduct] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [additionalImages, setAdditionalImages] = useState([]);
+  const [productImages, setProductImages] = useState([]);
 
   const [categoryForm, setCategoryForm] = useState({
     name: "",
@@ -59,6 +64,22 @@ const AdminPanel = () => {
     
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const loadProductImages = async () => {
+      if (selectedProduct) {
+        try {
+          const images = await getProductImages(selectedProduct.id);
+          setProductImages(images);
+        } catch (error) {
+          console.error('Error loading product images:', error);
+          alert('Failed to load product images');
+        }
+      }
+    };
+
+    loadProductImages();
+  }, [selectedProduct]);
 
   // Category handlers
   const handleCategorySubmit = (e) => {
@@ -114,55 +135,52 @@ const AdminPanel = () => {
   };
 
   // Product handlers
-  const handleProductSubmit = (e) => {
+  const handleProductSubmit = async (e) => {
     e.preventDefault();
-    if (!productForm.name || !productForm.category || !productForm.price) {
-      alert("Product name, category, and price are required!");
-      return;
+    if (!productForm.name || !productForm.category) {
+        alert("Product name and category are required!");
+        return;
     }
 
-    const processImages = async () => {
-      const imagePromises = productForm.images.map(image => {
-        if (image instanceof File) {
-          return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(image);
-          });
+    try {
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+            const productData = {
+                name: productForm.name,
+                description: productForm.description,
+                image: reader.result,
+                categoryId: parseInt(productForm.category)
+            };
+
+            if (editingProduct) {
+                await updateProduct(editingProduct.id, productData);
+            } else {
+                await createProduct(productData);
+            }
+
+            // Refresh products list
+            const updatedProducts = await getAllProducts(productForm.category);
+            setProducts(updatedProducts);
+            
+            setShowProductForm(false);
+            setEditingProduct(null);
+            setProductForm({
+                name: "",
+                description: "",
+                category: "",
+                image: null
+            });
+        };
+
+        if (productForm.image instanceof File) {
+            reader.readAsDataURL(productForm.image);
+        } else {
+            reader.onloadend();
         }
-        return Promise.resolve(image);
-      });
-
-      const processedImages = await Promise.all(imagePromises);
-
-      const productData = {
-        id: editingProduct ? editingProduct.id : Date.now(),
-        name: productForm.name,
-        description: productForm.description,
-        price: productForm.price,
-        categoryId: parseInt(productForm.category),
-        images: processedImages,
-      };
-
-      if (editingProduct) {
-        updateProduct(editingProduct.id, productData);
-      } else {
-        addProduct(productData);
-      }
-
-      setProducts(getAllProducts());
-      setShowProductForm(false);
-      setEditingProduct(null);
-      setProductForm({
-        name: "",
-        description: "",
-        price: "",
-        category: "",
-        images: [],
-      });
-    };
-
-    processImages();
+    } catch (error) {
+        console.error('Error submitting product:', error);
+        alert('Failed to save product. Please try again.');
+    }
   };
 
   const handleEditProduct = (product) => {
@@ -177,10 +195,18 @@ const AdminPanel = () => {
     setShowProductForm(true);
   };
 
-  const handleDeleteProduct = (id) => {
+  const handleDeleteProduct = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      deleteProduct(id);
-      setProducts(getAllProducts());
+        try {
+            await deleteProduct(id);
+            // After successful deletion, refresh the products list
+            const updatedProducts = await getAllProducts(categoryId);
+            setProducts(updatedProducts);
+            alert('Product deleted successfully');
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            alert('Failed to delete product. Please try again.');
+        }
     }
   };
 
@@ -205,8 +231,8 @@ const AdminPanel = () => {
   };
 
   const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setProductForm({ ...productForm, images: files });
+    const file = e.target.files[0];
+    setProductForm({ ...productForm, image: file });
   };
 
   const handleAdditionalImagesUpload = async (e) => {
@@ -218,42 +244,44 @@ const AdminPanel = () => {
     }
 
     try {
-      const imagePromises = files.map(file => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-      });
-
-      const processedImages = await Promise.all(imagePromises);
-      
-      // Add new images to the selected product
-      const success = addProductImages(selectedProduct.id, processedImages);
-      
-      if (success) {
-        // Update the products list and selected product
-        const updatedProducts = getAllProducts();
-        setProducts(updatedProducts);
-        setSelectedProduct(updatedProducts.find(p => p.id === selectedProduct.id));
-        
-        // Clear the file input
-        e.target.value = '';
-        alert('Images added successfully!');
-      } else {
-        alert('Failed to add images. Please try again.');
+      for (const file of files) {
+        const reader = new FileReader();
+        reader.onloadend = async () => {
+          try {
+            await addProductImage(selectedProduct.id, reader.result);
+          } catch (error) {
+            console.error('Error adding image:', error);
+            alert(`Failed to add image: ${file.name}`);
+          }
+        };
+        reader.readAsDataURL(file);
       }
+
+      // Refresh the images list
+      const updatedImages = await getProductImages(selectedProduct.id);
+      setProductImages(updatedImages);
+      
+      // Clear the file input
+      e.target.value = '';
+      alert('Images added successfully!');
     } catch (error) {
       console.error('Error processing images:', error);
       alert('Error processing images. Please try again.');
     }
   };
 
-  const handleDeleteProductImage = (productId, imageIndex) => {
+  const handleDeleteProductImage = async (imageId) => {
     if (window.confirm('Are you sure you want to delete this image?')) {
-      deleteProductImage(productId, imageIndex);
-      setProducts(getAllProducts());
+      try {
+        await deleteProductImageApi(imageId);
+        // Refresh the images list
+        const updatedImages = await getProductImages(selectedProduct.id);
+        setProductImages(updatedImages);
+        alert('Image deleted successfully');
+      } catch (error) {
+        console.error('Error deleting image:', error);
+        alert('Failed to delete image. Please try again.');
+      }
     }
   };
 
@@ -550,12 +578,8 @@ const AdminPanel = () => {
                       <input
                         id="productImages"
                         type="file"
-                        multiple
                         accept="image/*"
-                        onChange={(e) => {
-                          const files = Array.from(e.target.files);
-                          setProductForm({ ...productForm, images: files });
-                        }}
+                        onChange={handleImageUpload}
                       />
                       <div className="image-preview">
                         {productForm.images.map((image, index) => (
@@ -623,19 +647,21 @@ const AdminPanel = () => {
                       onChange={handleAdditionalImagesUpload}
                       className="file-input"
                     />
-                    <p className="upload-hint">Select multiple images to add to {selectedProduct.name}</p>
+                    <p className="upload-hint">
+                      Select multiple images to add to {selectedProduct.name}
+                    </p>
                   </div>
                 </div>
 
                 <div className="gallery-grid">
-                  {selectedProduct.images && selectedProduct.images.length > 0 ? (
-                    selectedProduct.images.map((image, index) => (
-                      <div key={`${selectedProduct.id}-${index}`} className="gallery-item">
-                        <img src={image} alt={`Product ${index + 1}`} />
+                  {productImages.length > 0 ? (
+                    productImages.map((image) => (
+                      <div key={image.id} className="gallery-item">
+                        <img src={image.image} alt={`Product ${image.id}`} />
                         <div className="gallery-item-actions">
                           <button
                             className="delete-btn"
-                            onClick={() => handleDeleteProductImage(selectedProduct.id, index)}
+                            onClick={() => handleDeleteProductImage(image.id)}
                           >
                             Delete
                           </button>

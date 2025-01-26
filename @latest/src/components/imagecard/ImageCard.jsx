@@ -11,6 +11,7 @@ const ImageCard = ({
   dimensions,
   color,
   type,
+  categoryId
 }) => {
   const navigate = useNavigate();
 
@@ -20,16 +21,12 @@ const ImageCard = ({
 
   return (
     <div className="image-card" onClick={handleClick}>
-      <img src={imageUrl} alt={title} className="image-card-img" />
-      <div className="image-card-content">
-        <h3 className="image-card-title">{title}</h3>
-        <p className="image-card-description">{description}</p>
-        <div className="image-card-details">
-          <p className="image-card-price">₹{price}</p>
-          <p className="image-card-color">
-            <span className="color-label">Color:</span> {color[0]}
-          </p>
-        </div>
+      <div className="image-container">
+        <img src={imageUrl} alt={title} />
+      </div>
+      <div className="card-content">
+        <h3>{title}</h3>
+        <p>{description}</p>
       </div>
     </div>
   );

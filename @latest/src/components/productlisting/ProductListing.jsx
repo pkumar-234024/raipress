@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getAllProducts } from "../../data/productData";
-import { getAllCategories } from "../../data/categoryData";
+import { getAllProducts, getProductById } from "../../data/productData";
+import { getAllCategories, getCategoryById } from "../../data/categoryData";
 import "./ProductListing.css";
 import ImageCard from "../imagecard/ImageCard";
 
@@ -10,35 +10,33 @@ const ProductListing = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadProducts = () => {
-      const allProducts = getAllProducts();
-      const allCategories = getAllCategories();
-      
-      // console.log('Category ID:', categoryId);
-      // console.log('All Categories:', allCategories);
-      // console.log('All Products:', allProducts);
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      // Find the category by ID
-      const category = allCategories.find(cat => String(cat.id) === String(categoryId));
-      
-      if (category) {
-        //console.log('Found category:', category);
-        setCategoryName(category.name);
-        
-        // Filter products that belong to this category
-        const filteredProducts = allProducts.filter(product => {
-          //console.log('Comparing:', product.categoryId, category.id);
-          return (String(product.categoryId) === String(category.id));
-        });
-        
-        console.log('Filtered Products:', filteredProducts);
-        console.log('Category Name:', categoryName);
-        setProducts(filteredProducts);
-      } else {
-        console.log('Category not found');
+        // Get category details
+        const category = await getCategoryById(categoryId);
+        if (category) {
+          setCategoryName(category.categoryName);
+
+          // Get products for this category
+          const productsData = await getAllProducts(categoryId);
+          setProducts(productsData);
+        } else {
+          setError("Category not found");
+          setProducts([]);
+        }
+      } catch (error) {
+        console.error('Error loading products:', error);
+        setError("Failed to load products. Please try again later.");
         setProducts([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -46,6 +44,23 @@ const ProductListing = () => {
       loadProducts();
     }
   }, [categoryId]);
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <h2>Loading products...</h2>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error">
+        <h2>{error}</h2>
+        <button onClick={() => navigate("/")}>Go Back to Categories</button>
+      </div>
+    );
+  }
 
   if (products.length === 0) {
     return (
@@ -64,13 +79,10 @@ const ProductListing = () => {
           <ImageCard
             key={product.id}
             id={product.id}
-            imageUrl={product.images && product.images.length > 0 ? product.images[0] : product.image}
+            imageUrl={product.image} // Using the single image from API
             title={product.name}
             description={product.description}
-            price={product.price}
-            dimensions={product.dimensions}
-            color={product.color}
-            type={product.type}
+            categoryId={product.categoryId}
           />
         ))}
       </div>

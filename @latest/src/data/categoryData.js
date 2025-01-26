@@ -58,6 +58,7 @@ export const createCategory = async (categoryData) => {
             CategoryDescription: categoryData.description,
             CategoryImage: categoryData.image.split(',')[1] // Remove the data:image/jpeg;base64, prefix
         };
+        console.log(dataToSend);
 
         const response = await fetch(API_URL, {
             method: 'POST',

@@ -11,7 +11,6 @@ public class Product : BaseClass, IAggregateRoot
   [MaxLength(500)]
   public string ProductsDescription { get; set; } = string.Empty;
 
-  [MaxLength(255)]
   public byte[] ProductsImage { get; set; } = []; // Stores image as a byte array
 
   [Required]

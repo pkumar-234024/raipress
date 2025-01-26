@@ -1305,3 +1305,680 @@ CREATE TABLE [ProductCategory] (
 2025-01-26 23:17:35.910 +05:30 [INF] Executed DbCommand (377ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
 VALUES (N'20250126174720_Initial', N'8.0.0');
+2025-01-26 23:19:08.754 +05:30 [INF] Registered 16 endpoints in 1038 milliseconds.
+2025-01-26 23:19:12.242 +05:30 [INF] Executed DbCommand (307ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-01-26 23:19:12.717 +05:30 [INF] Executed DbCommand (467ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-01-26 23:19:13.192 +05:30 [INF] Executed DbCommand (341ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Contributors] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-01-26 23:19:13.511 +05:30 [INF] Executed DbCommand (289ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[Name], [c].[Status]
+FROM [Contributors] AS [c]
+2025-01-26 23:19:14.010 +05:30 [INF] Executed DbCommand (394ms) [Parameters=[@p0='?' (Size = 100), @p1='?' (DbType = Int32), @p2='?' (Size = 100), @p3='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+MERGE [Contributors] USING (
+VALUES (@p0, @p1, 0),
+(@p2, @p3, 1)) AS i ([Name], [Status], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([Name], [Status])
+VALUES (i.[Name], i.[Status])
+OUTPUT INSERTED.[Id], i._Position;
+2025-01-26 23:19:14.121 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-26 23:19:14.126 +05:30 [INF] Hosting environment: Development
+2025-01-26 23:19:14.126 +05:30 [INF] Content root path: D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web
+2025-01-26 23:19:14.165 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger - null null
+2025-01-26 23:19:14.324 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger - 302 null null 163.4749ms
+2025-01-26 23:19:14.332 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/index.html - null null
+2025-01-26 23:19:14.425 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/index.html - 200 null text/html; charset=utf-8 93.7311ms
+2025-01-26 23:19:14.503 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-26 23:19:14.507 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - 200 13754 application/javascript; charset=utf-8 4.1243ms
+2025-01-26 23:19:14.585 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - null null
+2025-01-26 23:19:14.622 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - 200 null text/javascript; charset=UTF-8 37.1058ms
+2025-01-26 23:19:14.748 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - null null
+2025-01-26 23:19:14.807 +05:30 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-26 23:19:15.324 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - 200 null application/json; charset=utf-8 579.8458ms
+2025-01-26 23:30:52.371 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:30:52.438 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:30:52.453 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-01-26 23:30:52.466 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:30:54.433 +05:30 [INF] Executed DbCommand (390ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:30:54.445 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:30:54.452 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 2101.5642ms
+2025-01-26 23:30:54.590 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:30:54.590 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:30:54.591 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:30:54.911 +05:30 [INF] Executed DbCommand (317ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:30:54.913 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:30:54.913 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 323.3382ms
+2025-01-26 23:31:03.982 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:03.983 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:03.983 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:04.247 +05:30 [INF] Executed DbCommand (262ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:04.248 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:04.248 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 265.7219ms
+2025-01-26 23:31:04.405 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:31:04.406 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:04.408 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:04.408 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:04.408 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:04.414 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 8.5487ms
+2025-01-26 23:31:04.415 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:31:04.694 +05:30 [INF] Executed DbCommand (284ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:04.695 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:04.695 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 287.8129ms
+2025-01-26 23:31:04.847 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:31:04.848 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:04.848 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 1.141ms
+2025-01-26 23:31:04.849 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:31:17.458 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:17.459 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:17.459 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:21.923 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:21.924 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:21.924 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:22.019 +05:30 [INF] Executed DbCommand (4,558ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:22.020 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:22.020 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 4562.2026ms
+2025-01-26 23:31:23.650 +05:30 [INF] Executed DbCommand (319ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:23.651 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:23.651 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 1727.967ms
+2025-01-26 23:31:23.959 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:23.959 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:23.959 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:24.236 +05:30 [INF] Executed DbCommand (276ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:24.237 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:24.237 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 278.0607ms
+2025-01-26 23:31:43.124 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories/1 - null null
+2025-01-26 23:31:43.127 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:43.127 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories/{Id}'
+2025-01-26 23:31:47.600 +05:30 [INF] Executed DbCommand (279ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+WHERE [p].[Id] = @__p_0
+2025-01-26 23:31:47.723 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories/{Id}'
+2025-01-26 23:31:47.725 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: Prodcut not found
+   at rpapi.Core.Services.ProductCategoryService.GetByIdAsync(Int32 Id) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Core\Services\ProductCategoryService.cs:line 95
+   at rpapi.Web.ProductCategorAPI.GetById.HandleAsync(GetCategoryInput request, CancellationToken cancellationToken) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web\ProductCategorAPI\GetById.cs:line 24
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at NSwag.AspNetCore.Middlewares.SwaggerUiIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.RedirectToIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.OpenApiDocumentMiddleware.Invoke(HttpContext context)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-01-26 23:31:47.784 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories/1 - 500 null text/plain; charset=utf-8 4660.3765ms
+2025-01-26 23:31:47.932 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories/1 - null null
+2025-01-26 23:31:47.933 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:47.933 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories/{Id}'
+2025-01-26 23:31:49.571 +05:30 [INF] Executed DbCommand (372ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+WHERE [p].[Id] = @__p_0
+2025-01-26 23:31:49.619 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories/{Id}'
+2025-01-26 23:31:49.620 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: Prodcut not found
+   at rpapi.Core.Services.ProductCategoryService.GetByIdAsync(Int32 Id) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Core\Services\ProductCategoryService.cs:line 95
+   at rpapi.Web.ProductCategorAPI.GetById.HandleAsync(GetCategoryInput request, CancellationToken cancellationToken) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web\ProductCategorAPI\GetById.cs:line 24
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at NSwag.AspNetCore.Middlewares.SwaggerUiIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.RedirectToIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.OpenApiDocumentMiddleware.Invoke(HttpContext context)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-01-26 23:31:49.622 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories/1 - 500 null text/plain; charset=utf-8 1689.7365ms
+2025-01-26 23:31:52.665 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:52.666 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:52.666 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:53.091 +05:30 [INF] Executed DbCommand (423ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:53.091 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:53.092 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 426.1971ms
+2025-01-26 23:31:53.228 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:53.228 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:53.228 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:53.568 +05:30 [INF] Executed DbCommand (339ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:53.569 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:53.569 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 341.214ms
+2025-01-26 23:31:58.067 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:58.067 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:58.068 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:58.328 +05:30 [INF] Executed DbCommand (258ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:58.332 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:58.333 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 265.8562ms
+2025-01-26 23:31:58.469 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:31:58.469 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:58.469 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:58.510 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:31:58.510 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:58.511 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 0.8838ms
+2025-01-26 23:31:58.511 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:31:58.725 +05:30 [INF] Executed DbCommand (255ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:31:58.726 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:31:58.726 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 256.9785ms
+2025-01-26 23:31:58.866 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:31:58.867 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:31:58.867 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 0.8704ms
+2025-01-26 23:31:58.867 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:32:18.284 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - null null
+2025-01-26 23:32:18.284 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:32:18.286 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - 204 null null 2.2339ms
+2025-01-26 23:32:18.443 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 2047347
+2025-01-26 23:32:18.444 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:32:18.444 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:32:21.495 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 2047347
+2025-01-26 23:32:21.495 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:32:21.495 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:32:29.659 +05:30 [INF] Executed DbCommand (4,510ms) [Parameters=[@p0='?' (Size = 500), @p1='?' (Size = -1) (DbType = Binary), @p2='?' (Size = 255), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ProductCategory] ([CategoryDescription], [CategoryImage], [CategoryName], [CreateTime])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-01-26 23:32:29.681 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'rpapi.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:36ff273d-687d-47bc-b91d-732478ce1a0a
+Error Number:8152,State:10,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:36ff273d-687d-47bc-b91d-732478ce1a0a
+Error Number:8152,State:10,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-01-26 23:32:29.778 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:32:29.779 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while saving the entity changes. See the inner exception for details.
+   at rpapi.Core.Services.ProductCategoryService.CreateAndUpdateAsync(ProductCategory input) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Core\Services\ProductCategoryService.cs:line 46
+   at rpapi.Web.ProductCategorAPI.Create.HandleAsync(ProductCategory request, CancellationToken cancellationToken) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web\ProductCategorAPI\Create.cs:line 24
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at NSwag.AspNetCore.Middlewares.SwaggerUiIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.RedirectToIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.OpenApiDocumentMiddleware.Invoke(HttpContext context)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-01-26 23:32:29.781 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 500 null text/plain; charset=utf-8 11338.7391ms
+2025-01-26 23:32:37.805 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:32:37.805 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:32:37.806 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:32:38.219 +05:30 [INF] Executed DbCommand (10,645ms) [Parameters=[@p0='?' (Size = 500), @p1='?' (Size = -1) (DbType = Binary), @p2='?' (Size = 255), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ProductCategory] ([CategoryDescription], [CategoryImage], [CategoryName], [CreateTime])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-01-26 23:32:38.219 +05:30 [INF] Executed DbCommand (412ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:32:38.220 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:32:38.220 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 414.8291ms
+2025-01-26 23:32:38.223 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'rpapi.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:faaf261c-32fe-4465-be8d-89ccf850f1bf
+Error Number:8152,State:10,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:faaf261c-32fe-4465-be8d-89ccf850f1bf
+Error Number:8152,State:10,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-01-26 23:32:38.308 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:32:38.309 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while saving the entity changes. See the inner exception for details.
+   at rpapi.Core.Services.ProductCategoryService.CreateAndUpdateAsync(ProductCategory input) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Core\Services\ProductCategoryService.cs:line 46
+   at rpapi.Web.ProductCategorAPI.Create.HandleAsync(ProductCategory request, CancellationToken cancellationToken) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web\ProductCategorAPI\Create.cs:line 24
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at NSwag.AspNetCore.Middlewares.SwaggerUiIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.RedirectToIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.OpenApiDocumentMiddleware.Invoke(HttpContext context)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-01-26 23:32:38.311 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 500 null text/plain; charset=utf-8 16816.181ms
+2025-01-26 23:32:38.396 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:32:38.396 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:32:38.396 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:32:38.418 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:32:38.419 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:32:38.419 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 0.7742ms
+2025-01-26 23:32:38.419 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:32:38.692 +05:30 [INF] Executed DbCommand (294ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:32:38.692 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:32:38.693 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 296.6295ms
+2025-01-26 23:32:38.841 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:32:38.841 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:32:38.842 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 1.0398ms
+2025-01-26 23:32:38.842 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:33:35.906 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:33:35.937 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:33:39.954 +05:30 [INF] Executed DbCommand (4,012ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:33:39.955 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:33:39.956 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 204 null null 4049.369ms
+2025-01-26 23:34:15.693 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 139
+2025-01-26 23:34:15.695 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:34:15.695 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:34:18.170 +05:30 [INF] Executed DbCommand (366ms) [Parameters=[@p0='?' (Size = 500), @p1='?' (Size = 255) (DbType = Binary), @p2='?' (Size = 255), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ProductCategory] ([CategoryDescription], [CategoryImage], [CategoryName], [CreateTime])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-01-26 23:34:18.194 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:34:18.195 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 200 null application/json 2501.2282ms
+2025-01-26 23:34:29.890 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:34:29.891 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:34:30.179 +05:30 [INF] Executed DbCommand (285ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:34:30.204 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:34:30.204 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 314.7313ms
+2025-01-26 23:34:36.268 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:34:36.268 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:34:36.268 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:34:36.538 +05:30 [INF] Executed DbCommand (268ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:34:36.539 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:34:36.540 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 271.738ms
+2025-01-26 23:34:36.696 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:34:36.697 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:34:36.697 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:34:36.727 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:34:36.727 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:34:36.728 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 1.2182ms
+2025-01-26 23:34:36.728 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:34:37.051 +05:30 [INF] Executed DbCommand (352ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:34:37.053 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:34:37.053 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 356.5942ms
+2025-01-26 23:34:37.175 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/category/undefined - null null
+2025-01-26 23:34:37.176 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:34:37.176 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/category/undefined - 404 null null 1.6822ms
+2025-01-26 23:34:37.176 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:57678/Product/category/undefined, Response status code: 404
+2025-01-26 23:35:03.585 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:03.585 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:03.586 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:07.040 +05:30 [INF] Executed DbCommand (3,452ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:07.047 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:07.049 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 3464.5069ms
+2025-01-26 23:35:07.182 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:35:07.184 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:07.184 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:07.200 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:07.200 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 17.8201ms
+2025-01-26 23:35:09.836 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:09.837 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:09.837 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:10.097 +05:30 [INF] Executed DbCommand (257ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:10.099 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:10.099 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 262.6256ms
+2025-01-26 23:35:10.261 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:10.261 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:10.261 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:10.263 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:35:10.265 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:10.265 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:10.267 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:10.267 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 4.3462ms
+2025-01-26 23:35:10.535 +05:30 [INF] Executed DbCommand (273ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:10.536 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:10.536 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 275.5033ms
+2025-01-26 23:35:10.701 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:35:10.701 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:10.701 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:10.703 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:10.703 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 2.1876ms
+2025-01-26 23:35:28.863 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:28.863 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:28.863 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:29.213 +05:30 [INF] Executed DbCommand (347ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:29.214 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:29.215 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 351.9317ms
+2025-01-26 23:35:29.388 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:29.388 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:29.388 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:29.693 +05:30 [INF] Executed DbCommand (304ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:29.694 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:29.695 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 307.2217ms
+2025-01-26 23:35:38.905 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:38.905 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:38.906 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:39.177 +05:30 [INF] Executed DbCommand (270ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:39.178 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:39.179 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 273.4804ms
+2025-01-26 23:35:39.289 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:39.289 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:39.289 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:39.613 +05:30 [INF] Executed DbCommand (321ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:39.614 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:39.614 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 325.4887ms
+2025-01-26 23:35:50.102 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:50.102 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:50.102 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:50.375 +05:30 [INF] Executed DbCommand (271ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:50.376 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:50.376 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 274.5433ms
+2025-01-26 23:35:50.587 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:35:50.587 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:50.587 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:50.590 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:50.590 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 3.3467ms
+2025-01-26 23:35:50.608 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:35:50.608 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:50.608 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:50.972 +05:30 [INF] Executed DbCommand (362ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:35:50.973 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:35:50.974 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 365.8083ms
+2025-01-26 23:35:51.138 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:35:51.139 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:35:51.139 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:51.141 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:35:51.141 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 2.2848ms
+2025-01-26 23:36:31.512 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - null null
+2025-01-26 23:36:31.513 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:36:31.513 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - 204 null null 0.737ms
+2025-01-26 23:36:31.656 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 767768
+2025-01-26 23:36:31.656 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:36:31.656 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:36:46.889 +05:30 [INF] Executed DbCommand (553ms) [Parameters=[@p0='?' (Size = 500), @p1='?' (Size = -1) (DbType = Binary), @p2='?' (Size = 255), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ProductCategory] ([CategoryDescription], [CategoryImage], [CategoryName], [CreateTime])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-01-26 23:36:46.894 +05:30 [ERR] An exception occurred in the database while saving changes for context type 'rpapi.Infrastructure.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:36ff273d-687d-47bc-b91d-732478ce1a0a
+Error Number:8152,State:10,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): String or binary data would be truncated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.ReadAsyncExecute(Task task, Object state)
+   at Microsoft.Data.SqlClient.SqlDataReader.InvokeAsyncCall[T](SqlDataReaderBaseAsyncCallContext`1 context)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+ClientConnectionId:36ff273d-687d-47bc-b91d-732478ce1a0a
+Error Number:8152,State:10,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetAsync(Int32 startCommandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-01-26 23:37:17.858 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:37:17.859 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+System.Exception: An error occurred while saving the entity changes. See the inner exception for details.
+   at rpapi.Core.Services.ProductCategoryService.CreateAndUpdateAsync(ProductCategory input) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Core\Services\ProductCategoryService.cs:line 46
+   at rpapi.Web.ProductCategorAPI.Create.HandleAsync(ProductCategory request, CancellationToken cancellationToken) in D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web\ProductCategorAPI\Create.cs:line 24
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at FastEndpoints.Endpoint`2.ExecAsync(CancellationToken ct)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at NSwag.AspNetCore.Middlewares.SwaggerUiIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.RedirectToIndexMiddleware.Invoke(HttpContext context)
+   at NSwag.AspNetCore.Middlewares.OpenApiDocumentMiddleware.Invoke(HttpContext context)
+   at Ardalis.ListStartupServices.ShowAllServicesMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-01-26 23:37:17.862 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 500 null text/plain; charset=utf-8 46206.5587ms
+2025-01-26 23:37:41.403 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 23:37:41.404 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:37:41.404 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:37:41.663 +05:30 [INF] Executed DbCommand (255ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 23:37:41.668 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 23:37:41.669 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 266.3574ms
+2025-01-26 23:37:41.824 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/Product/undefined - null null
+2025-01-26 23:37:41.824 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:37:41.824 +05:30 [INF] Executing endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:37:41.826 +05:30 [INF] Executed endpoint 'HTTP: GET /Product/{Id}'
+2025-01-26 23:37:41.826 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/Product/undefined - 400 null application/problem+json 2.6591ms
+2025-01-26 23:37:46.744 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - null null
+2025-01-26 23:37:46.744 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:37:46.745 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:57678/ProductCategories - 204 null null 0.5153ms
+2025-01-26 23:37:46.894 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 767768
+2025-01-26 23:37:46.895 +05:30 [INF] CORS policy execution successful.
+2025-01-26 23:37:46.895 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 23:39:07.159 +05:30 [INF] Executed DbCommand (313ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-01-26 23:39:07.478 +05:30 [INF] Executed DbCommand (285ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-01-26 23:39:07.755 +05:30 [INF] Executed DbCommand (275ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-01-26 23:39:08.032 +05:30 [INF] Executed DbCommand (276ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-01-26 23:39:08.418 +05:30 [INF] Executed DbCommand (376ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-01-26 23:39:08.428 +05:30 [INF] Applying migration '20250126180851_Second'.
+2025-01-26 23:39:09.056 +05:30 [INF] Executed DbCommand (322ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[ProductCategory]') AND [c].[name] = N'CategoryImage');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [ProductCategory] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [ProductCategory] ALTER COLUMN [CategoryImage] varbinary(max) NOT NULL;
+2025-01-26 23:39:09.326 +05:30 [INF] Executed DbCommand (269ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20250126180851_Second', N'8.0.0');
+2025-01-26 23:39:55.151 +05:30 [INF] Executed DbCommand (309ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-01-26 23:39:55.626 +05:30 [INF] Executed DbCommand (446ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-01-26 23:39:55.940 +05:30 [INF] Executed DbCommand (313ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-01-26 23:39:56.260 +05:30 [INF] Executed DbCommand (319ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-01-26 23:39:56.555 +05:30 [INF] Executed DbCommand (286ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-01-26 23:39:56.564 +05:30 [INF] Applying migration '20250126180946_Third'.
+2025-01-26 23:40:01.384 +05:30 [INF] Executed DbCommand (4,481ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Product]') AND [c].[name] = N'ProductsImage');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [Product] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [Product] ALTER COLUMN [ProductsImage] varbinary(max) NOT NULL;
+2025-01-26 23:40:01.702 +05:30 [INF] Executed DbCommand (317ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20250126180946_Third', N'8.0.0');
