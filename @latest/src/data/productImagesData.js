@@ -1,4 +1,4 @@
-const API_URL = 'https://a6a5-2409-40e3-3013-5e8b-7056-2b3c-35a2-54a8.ngrok-free.app/ProductImages';
+import { API_ENDPOINTS, API_HEADERS, IMAGE_CONFIG } from '../config/constants';
 
 // Helper function to convert base64 to byte array
 const base64ToByteArray = (base64String) => {
@@ -14,14 +14,16 @@ const base64ToByteArray = (base64String) => {
 // Get all images for a product
 export const getProductImages = async (productId) => {
     try {
-        const response = await fetch(`${API_URL}/product/${productId}`);
+        const response = await fetch(`${API_ENDPOINTS.PRODUCT_IMAGES}/${productId}`, {
+            headers: API_HEADERS
+        });
         if (!response.ok) {
             throw new Error('Failed to fetch product images');
         }
         const data = await response.json();
         return data.map(image => ({
             id: image.id,
-            image: `data:image/jpeg;base64,${image.productsImage}`,
+            image: `${IMAGE_CONFIG.BASE64_PREFIX}${image.productsImage}`,
             productId: image.productId
         }));
     } catch (error) {
@@ -39,7 +41,7 @@ export const addProductImage = async (productId, imageData) => {
             ProductId: parseInt(productId)
         };
 
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_ENDPOINTS.PRODUCT_IMAGES, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,7 +70,7 @@ export const updateProductImage = async (id, imageData, productId) => {
             ProductId: parseInt(productId)
         };
 
-        const response = await fetch(`${API_URL}`, {
+        const response = await fetch(API_ENDPOINTS.PRODUCT_IMAGES, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -91,7 +93,7 @@ export const updateProductImage = async (id, imageData, productId) => {
 // Delete a product image
 export const deleteProductImage = async (id) => {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
+        const response = await fetch(`${API_ENDPOINTS.PRODUCT_IMAGES}/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

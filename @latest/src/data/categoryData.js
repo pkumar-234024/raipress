@@ -1,3 +1,4 @@
+import { API_ENDPOINTS, API_HEADERS, IMAGE_CONFIG } from '../config/constants';
 import masterImage from '../assets/cardCategory/wedding-cat.jfif';
 
 //const API_URL = 'http://rajshreepress.runasp.net/ProductCategories';
@@ -31,7 +32,9 @@ export const categoryData = () => initialCategories;
 // Fetch all categories
 export const getAllCategories = async () => {
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch(API_ENDPOINTS.CATEGORIES, {
+            headers: API_HEADERS
+        });
         if (!response.ok) {
             throw new Error('Failed to fetch categories');
         }
@@ -40,11 +43,11 @@ export const getAllCategories = async () => {
             id: category.id,
             name: category.categoryName,
             description: category.categoryDescription,
-            image: `data:image/jpeg;base64,${category.categoryImage}`
+            image: `${IMAGE_CONFIG.BASE64_PREFIX}${category.categoryImage}`
         }));
     } catch (error) {
         console.error('Error fetching categories:', error);
-        return initialCategories; // Fallback to initial data if API fails
+        return initialCategories;
     }
 };
 

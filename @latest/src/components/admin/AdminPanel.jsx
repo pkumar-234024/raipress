@@ -46,6 +46,8 @@ const AdminPanel = () => {
     image: null,
   });
 
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   // Fetch categories only when category tab is active
   useEffect(() => {
     const fetchCategories = async () => {
@@ -72,8 +74,9 @@ const AdminPanel = () => {
       if (activeTab === "product" && categories.length > 0) {
         try {
           setLoading(true);
-          // Fetch products for the first category initially
-          const productsData = await getAllProducts(categories[0].id);
+          // Get the first category's ID
+          const firstCategoryId = categories[0].id;
+          const productsData = await getAllProducts(firstCategoryId);
           setProducts(productsData);
         } catch (error) {
           console.error('Error fetching products:', error);
@@ -325,6 +328,20 @@ const AdminPanel = () => {
     }
   };
 
+  const handleCategoryChange = async (categoryId) => {
+    try {
+      setLoading(true);
+      const productsData = await getAllProducts(categoryId);
+      setProducts(productsData);
+      setSelectedCategory(categoryId);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="admin-panel">
       <div className="admin-tabs">
@@ -499,6 +516,20 @@ const AdminPanel = () => {
               >
                 + Add Product
               </button>
+            </div>
+
+            <div className="product-filters">
+              <select
+                value={selectedCategory || ''}
+                onChange={(e) => handleCategoryChange(e.target.value)}
+              >
+                <option value="">Select Category</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="items-list">

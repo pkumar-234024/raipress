@@ -1,3 +1,4 @@
+import { API_ENDPOINTS, API_HEADERS, IMAGE_CONFIG } from '../config/constants';
 import masterImage from '../assets/weddingcard/images.jfif';
 
 const API_URL = 'https://a6a5-2409-40e3-3013-5e8b-7056-2b3c-35a2-54a8.ngrok-free.app/Product';
@@ -5,7 +6,11 @@ const API_URL = 'https://a6a5-2409-40e3-3013-5e8b-7056-2b3c-35a2-54a8.ngrok-free
 // Fetch all products by category ID
 export const getAllProducts = async (categoryId) => {
     try {
-        const response = await fetch(`${API_URL}/${categoryId}`);
+        const response = await fetch(`${API_ENDPOINTS.PRODUCTS}/${categoryId}`, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
         if (!response.ok) {
             throw new Error('Failed to fetch products');
         }
@@ -14,7 +19,7 @@ export const getAllProducts = async (categoryId) => {
             id: product.id,
             name: product.productName,
             description: product.productsDescription,
-            image: `data:image/jpeg;base64,${product.productsImage}`,
+            image: `${IMAGE_CONFIG.BASE64_PREFIX}${product.productsImage}`,
             categoryId: product.productCategoryId
         }));
     } catch (error) {
