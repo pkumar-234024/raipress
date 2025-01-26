@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./AdminPanel.css";
 import {
-  categoryData,
-  addCategory,
   getAllCategories,
   deleteCategory,
   updateCategory,
+  createCategory,
+  categoryData,
 } from "../../data/categoryData";
 import {
   productData,
@@ -44,8 +44,20 @@ const AdminPanel = () => {
   });
 
   useEffect(() => {
-    setCategories(getAllCategories());
-    setProducts(getAllProducts());
+    const fetchData = async () => {
+      try {
+        const categoriesData = await getAllCategories();
+        setCategories(categoriesData);
+        const productsData = await getAllProducts();
+        setProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        // Fallback to initial data if API fails
+        setCategories(categoryData());
+      }
+    };
+    
+    fetchData();
   }, []);
 
   // Category handlers
@@ -57,24 +69,31 @@ const AdminPanel = () => {
     }
 
     const reader = new FileReader();
-    reader.onloadend = () => {
+    reader.onloadend = async () => {
       const categoryData = {
-        id: editingCategory ? editingCategory.id : Date.now(),
         name: categoryForm.name,
-        image: typeof categoryForm.image === 'string' ? categoryForm.image : reader.result,
         description: categoryForm.description,
+        image: reader.result, // This will be converted to byte array in the service
       };
 
-      if (editingCategory) {
-        updateCategory(editingCategory.id, categoryData);
-      } else {
-        addCategory(categoryData);
+      try {
+        if (editingCategory) {
+          await updateCategory(editingCategory.id, categoryData);
+        } else {
+          await createCategory(categoryData);
+        }
+        
+        // Refresh categories list
+        const updatedCategories = await getAllCategories();
+        setCategories(updatedCategories);
+        
+        setShowCategoryForm(false);
+        setEditingCategory(null);
+        setCategoryForm({ name: "", description: "", image: null });
+      } catch (error) {
+        console.error('Error submitting category:', error);
+        alert('Failed to save category. Please try again.');
       }
-
-      setCategories(getAllCategories());
-      setShowCategoryForm(false);
-      setEditingCategory(null);
-      setCategoryForm({ name: "", description: "", image: null });
     };
 
     if (categoryForm.image instanceof File) {
@@ -165,15 +184,18 @@ const AdminPanel = () => {
     }
   };
 
-  const handleDeleteCategory = (id) => {
+  const handleDeleteCategory = async (id) => {
     if (window.confirm('Are you sure you want to delete this category?')) {
-      const isDeleted = deleteCategory(id);
-      if (isDeleted) {
-        // Refresh the categories list
-        setCategories(getAllCategories());
-        // Force a page refresh
-        window.location.reload();
-      }
+        try {
+            await deleteCategory(id);
+            // After successful deletion, refresh the categories list
+            const updatedCategories = await getAllCategories();
+            setCategories(updatedCategories);
+            alert('Category deleted successfully');
+        } catch (error) {
+            console.error('Error deleting category:', error);
+            alert('Failed to delete category. Please try again.');
+        }
     }
   };
 
@@ -277,7 +299,7 @@ const AdminPanel = () => {
 
             <div className="items-list">
               {categories.map((category) => (
-                <div key={category.id} className="item-card">
+                <div key={`category-${category.id}`} className="item-card">
                   <img 
                     src={category.image} 
                     alt={category.name} 
@@ -411,11 +433,11 @@ const AdminPanel = () => {
 
             <div className="items-list">
               {products.map((product) => (
-                <div key={product.id} className="item-card">
+                <div key={`product-${product.id}`} className="item-card">
                   <div className="item-images">
                     {product.images.map((image, index) => (
                       <img 
-                        key={index}
+                        key={`${product.id}-${index}`}
                         src={image} 
                         alt={`${product.name} ${index + 1}`} 
                         className="item-thumbnail"
@@ -516,7 +538,7 @@ const AdminPanel = () => {
                       >
                         <option value="">Select Category</option>
                         {categories.map((category) => (
-                          <option key={category.id} value={category.id}>
+                          <option key={`category-${category.id}`} value={category.id}>
                             {category.name}
                           </option>
                         ))}
@@ -537,7 +559,7 @@ const AdminPanel = () => {
                       />
                       <div className="image-preview">
                         {productForm.images.map((image, index) => (
-                          <div key={index} className="preview-item">
+                          <div key={`${productForm.id}-${index}`} className="preview-item">
                             <img
                               src={image instanceof File ? URL.createObjectURL(image) : image}
                               alt={`Preview ${index}`}
@@ -582,7 +604,7 @@ const AdminPanel = () => {
               >
                 <option value="">Choose a product</option>
                 {products.map((product) => (
-                  <option key={product.id} value={product.id}>
+                  <option key={`product-${product.id}`} value={product.id}>
                     {product.name}
                   </option>
                 ))}
@@ -608,7 +630,7 @@ const AdminPanel = () => {
                 <div className="gallery-grid">
                   {selectedProduct.images && selectedProduct.images.length > 0 ? (
                     selectedProduct.images.map((image, index) => (
-                      <div key={index} className="gallery-item">
+                      <div key={`${selectedProduct.id}-${index}`} className="gallery-item">
                         <img src={image} alt={`Product ${index + 1}`} />
                         <div className="gallery-item-actions">
                           <button

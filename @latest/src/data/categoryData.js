@@ -1,40 +1,153 @@
 import masterImage from '../assets/cardCategory/wedding-cat.jfif';
 
-// Initialize categories from localStorage or use empty array if none exists
-let categoryData = JSON.parse(localStorage.getItem('categories')) || [];
+//const API_URL = 'http://rajshreepress.runasp.net/ProductCategories';
+const API_URL = 'https://a6a5-2409-40e3-3013-5e8b-7056-2b3c-35a2-54a8.ngrok-free.app/ProductCategories';
 
-export const getAllCategories = () => {
-    return categoryData;
-};
-
-export const addCategory = (category) => {
-    categoryData.push(category);
-    // Save to localStorage whenever we add a new category
-    localStorage.setItem('categories', JSON.stringify(categoryData));
-};
-
-export const getCategoryById = (id) => {
-    return categoryData.find(category => category.id === id);
-};
-
-export const updateCategory = (id, updatedCategory) => {
-    const index = categoryData.findIndex(category => category.id === id);
-    if (index !== -1) {
-        categoryData[index] = { ...categoryData[index], ...updatedCategory };
-        localStorage.setItem('categories', JSON.stringify(categoryData)); // Save changes
-        return true;
+// Helper function to convert base64 to byte array
+const base64ToByteArray = (base64String) => {
+    // Remove data URL prefix if present
+    const base64 = base64String.split(',')[1] || base64String;
+    const binaryString = window.atob(base64);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
     }
-    return false;
+    return Array.from(bytes);
 };
 
-export const deleteCategory = (id) => {
-    const index = categoryData.findIndex(category => category.id === id);
-    if (index !== -1) {
-        categoryData.splice(index, 1);
-        localStorage.setItem('categories', JSON.stringify(categoryData)); // Save changes
-        return true;
+// Initial categories data
+const initialCategories = [
+    {
+        id: 1,
+        name: "Wedding Cards",
+        description: "Beautiful wedding invitation cards",
+        image: masterImage
     }
-    return false;
+];
+
+// Export initial categories data
+export const categoryData = () => initialCategories;
+
+// Fetch all categories
+export const getAllCategories = async () => {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+            throw new Error('Failed to fetch categories');
+        }
+        const data = await response.json();
+        return data.map(category => ({
+            id: category.id,
+            name: category.categoryName,
+            description: category.categoryDescription,
+            image: `data:image/jpeg;base64,${category.categoryImage}`
+        }));
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        return initialCategories; // Fallback to initial data if API fails
+    }
 };
 
-export { categoryData }; 
+// Create a new category
+export const createCategory = async (categoryData) => {
+    try {
+        // Prepare the data to send in the correct format
+        const dataToSend = {
+            Id: 0, // API will assign the real ID
+            CategoryName: categoryData.name,
+            CategoryDescription: categoryData.description,
+            CategoryImage: categoryData.image.split(',')[1] // Remove the data:image/jpeg;base64, prefix
+        };
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Create response error:', errorData);
+            throw new Error('Failed to create category');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error creating category:', error);
+        throw error;
+    }
+};
+
+// Update an existing category
+export const updateCategory = async (id, categoryData) => {
+    try {
+        // Prepare the data to send in the correct format
+        const dataToSend = {
+            Id: id,
+            CategoryName: categoryData.name,
+            CategoryDescription: categoryData.description,
+            CategoryImage: categoryData.image.split(',')[1] // Remove the data:image/jpeg;base64, prefix
+        };
+
+        const response = await fetch(`${API_URL}`, {
+            method: 'Patch', // Changed from PATCH to PUT as that's more common for full updates
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Update response error:', errorData);
+            throw new Error('Failed to update category');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error updating category:', error);
+        throw error;
+    }
+};
+
+// Delete a category
+export const deleteCategory = async (id) => {
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: id }) // Add request body with ID
+        });
+
+        // Log the response for debugging
+        console.log('Delete response status:', response.status);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Delete response error:', errorData);
+            throw new Error(`Failed to delete category: ${JSON.stringify(errorData)}`);
+        }
+
+        const result = await response.json().catch(() => true);
+        return result;
+    } catch (error) {
+        console.error('Error deleting category:', error);
+        throw error;
+    }
+};
+
+// Get a single category by ID
+export const getCategoryById = async (id) => {
+    try {
+        const response = await fetch(`${API_URL}/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch category');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching category:', error);
+        throw error;
+    }
+}; 

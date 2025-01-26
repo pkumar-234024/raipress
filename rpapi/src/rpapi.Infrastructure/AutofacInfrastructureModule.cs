@@ -122,6 +122,10 @@ public class AutofacInfrastructureModule : Module
       .InstancePerLifetimeScope();
     builder.RegisterType<ProductCategoryService>().As<IProductCategoryService>()
       .InstancePerLifetimeScope();
+    builder.RegisterType<ProductService>().As<IProductService>()
+      .InstancePerLifetimeScope();
+    builder.RegisterType<ProductImagesService>().As<IProductImageService>()
+      .InstancePerLifetimeScope();
 
     //builder.RegisterType<FakeListContributorsQueryService>()
     //  .As<IListContributorsQueryService>()
@@ -134,6 +138,10 @@ public class AutofacInfrastructureModule : Module
     builder.RegisterType<SmtpEmailSender>().As<IEmailSender>()
       .InstancePerLifetimeScope();
     builder.RegisterType<ProductCategoryService>().As<IProductCategoryService>()
+      .InstancePerLifetimeScope();
+    builder.RegisterType<ProductService>().As<IProductService>()
+      .InstancePerLifetimeScope();
+    builder.RegisterType<ProductImagesService>().As<IProductImageService>()
       .InstancePerLifetimeScope();
   }
 }

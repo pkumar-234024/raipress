@@ -34,6 +34,7 @@ const ProductListing = () => {
         });
         
         console.log('Filtered Products:', filteredProducts);
+        console.log('Category Name:', categoryName);
         setProducts(filteredProducts);
       } else {
         console.log('Category not found');

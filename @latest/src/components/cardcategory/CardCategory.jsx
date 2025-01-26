@@ -17,7 +17,6 @@ const CardCategory = ({
   return (
     <div className="card-category-container">
       <div
-        key={categoryId}
         className="category-card"
         onClick={() => handleCategoryClick(categoryId)}
       >

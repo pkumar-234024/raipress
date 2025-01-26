@@ -25,6 +25,16 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 Guard.Against.Null(connectionString);
 builder.Services.AddApplicationDbContext(connectionString);
 
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("AllowAll", builder =>
+  {
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+  });
+});
+
 builder.Services.AddFastEndpoints();
 builder.Services.SwaggerDocument(o =>
 {
@@ -59,6 +69,7 @@ else
   app.UseDefaultExceptionHandler(); // from FastEndpoints
   app.UseHsts();
 }
+app.UseCors("AllowAll");
 app.UseFastEndpoints();
 app.UseSwaggerGen(); // FastEndpoints middleware
 
