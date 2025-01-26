@@ -1,0 +1,6 @@
+{
+  "rpapi.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\F\\mine\\gitgolder\\raipress\\rpapi\\src\\rpapi.Core",
+  "rpapi.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\F\\mine\\gitgolder\\raipress\\rpapi\\src\\rpapi.Infrastructure",
+  "rpapi.UseCases, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\F\\mine\\gitgolder\\raipress\\rpapi\\src\\rpapi.UseCases",
+  "rpapi.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\F\\mine\\gitgolder\\raipress\\rpapi\\src\\rpapi.Web"
+}

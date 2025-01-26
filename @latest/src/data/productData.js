@@ -36,4 +36,24 @@ export const deleteProduct = (id) => {
     return false;
 };
 
+export const addProductImages = (productId, newImages) => {
+    const index = productData.findIndex(product => product.id === productId);
+    if (index !== -1) {
+        productData[index].images = [...productData[index].images, ...newImages];
+        localStorage.setItem('products', JSON.stringify(productData));
+        return true;
+    }
+    return false;
+};
+
+export const deleteProductImage = (productId, imageIndex) => {
+    const index = productData.findIndex(product => product.id === productId);
+    if (index !== -1) {
+        productData[index].images.splice(imageIndex, 1);
+        localStorage.setItem('products', JSON.stringify(productData));
+        return true;
+    }
+    return false;
+};
+
 export { productData };

@@ -1,0 +1,168 @@
+2025-01-26 15:22:34.094 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+PRAGMA journal_mode = 'wal';
+2025-01-26 15:22:34.165 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" TEXT NOT NULL CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY,
+    "ProductVersion" TEXT NOT NULL
+);
+2025-01-26 15:22:34.171 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
+2025-01-26 15:22:34.172 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-01-26 15:22:34.180 +05:30 [INF] Applying migration '20250126095220_Initial'.
+2025-01-26 15:22:34.192 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Contributors" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Contributors" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "Status" INTEGER NOT NULL
+);
+2025-01-26 15:22:34.193 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "ProductCategory" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_ProductCategory" PRIMARY KEY AUTOINCREMENT,
+    "CategoryName" TEXT NOT NULL,
+    "CategoryDescription" TEXT NOT NULL,
+    "CategoryImage" BLOB NOT NULL,
+    "CreateTime" TEXT NOT NULL
+);
+2025-01-26 15:22:34.193 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20250126095220_Initial', '8.0.0');
+2025-01-26 16:00:11.368 +05:30 [INF] Registered 10 endpoints in 1126 milliseconds.
+2025-01-26 16:00:41.113 +05:30 [INF] Registered 10 endpoints in 1116 milliseconds.
+2025-01-26 16:00:45.263 +05:30 [INF] Executed DbCommand (289ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-01-26 16:00:45.603 +05:30 [INF] Executed DbCommand (331ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-01-26 16:00:46.069 +05:30 [INF] Executed DbCommand (319ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Contributors] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-01-26 16:00:46.172 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-26 16:00:46.175 +05:30 [INF] Hosting environment: Development
+2025-01-26 16:00:46.175 +05:30 [INF] Content root path: D:\F\mine\gitgolder\raipress\rpapi\src\rpapi.Web
+2025-01-26 16:00:46.217 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger - null null
+2025-01-26 16:00:47.269 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/index.html - null null
+2025-01-26 16:00:47.283 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger - 302 null null 1070.7289ms
+2025-01-26 16:00:47.384 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/index.html - 200 null text/html; charset=utf-8 115.1494ms
+2025-01-26 16:00:47.407 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-26 16:00:47.413 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_framework/aspnetcore-browser-refresh.js - 200 13754 application/javascript; charset=utf-8 5.479ms
+2025-01-26 16:00:47.483 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/_vs/browserLink - null null
+2025-01-26 16:00:47.553 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/_vs/browserLink - 200 null text/javascript; charset=UTF-8 70.0402ms
+2025-01-26 16:00:47.627 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - null null
+2025-01-26 16:00:47.707 +05:30 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-26 16:00:48.431 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/swagger/v1/swagger.json - 200 null application/json; charset=utf-8 804.5002ms
+2025-01-26 16:00:53.818 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 16:00:53.821 +05:30 [WRN] Failed to determine the https port for redirect.
+2025-01-26 16:00:53.824 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 16:00:54.399 +05:30 [INF] Executed DbCommand (449ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 16:00:54.484 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 16:00:54.490 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 671.8419ms
+2025-01-26 16:01:11.049 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories/2 - null null
+2025-01-26 16:01:11.051 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories/{Id}'
+2025-01-26 16:01:11.668 +05:30 [INF] Executed DbCommand (544ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+WHERE [p].[Id] = @__p_0
+2025-01-26 16:01:11.673 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories/{Id}'
+2025-01-26 16:01:11.674 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories/2 - 200 null application/json 624.1535ms
+2025-01-26 16:01:24.966 +05:30 [INF] Request starting HTTP/1.1 DELETE http://localhost:57678/ProductCategories/2 - null null
+2025-01-26 16:01:24.967 +05:30 [INF] Executing endpoint 'HTTP: DELETE /ProductCategories/{Id}'
+2025-01-26 16:01:25.427 +05:30 [INF] Executed DbCommand (450ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+WHERE [p].[Id] = @__p_0
+2025-01-26 16:01:25.909 +05:30 [INF] Executed DbCommand (419ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [ProductCategory]
+OUTPUT 1
+WHERE [Id] = @p0;
+2025-01-26 16:01:25.928 +05:30 [INF] Executed endpoint 'HTTP: DELETE /ProductCategories/{Id}'
+2025-01-26 16:01:25.929 +05:30 [INF] Request finished HTTP/1.1 DELETE http://localhost:57678/ProductCategories/2 - 200 null application/json 962.4892ms
+2025-01-26 16:01:30.510 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 16:01:30.510 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 16:01:30.870 +05:30 [INF] Executed DbCommand (357ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 16:01:30.872 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 16:01:30.872 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 362.8367ms
+2025-01-26 16:02:01.331 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 157
+2025-01-26 16:02:01.332 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:01.356 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:01.356 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 400 null application/problem+json 25.7536ms
+2025-01-26 16:02:45.117 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 157
+2025-01-26 16:02:45.122 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:45.128 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:45.129 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 400 null application/problem+json 12.0043ms
+2025-01-26 16:02:46.248 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 157
+2025-01-26 16:02:46.248 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:46.252 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:46.252 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 400 null application/problem+json 4.3606ms
+2025-01-26 16:02:46.700 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 157
+2025-01-26 16:02:46.700 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:46.704 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:46.704 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 400 null application/problem+json 4.5395ms
+2025-01-26 16:02:46.996 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 157
+2025-01-26 16:02:46.996 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:47.000 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:47.001 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 400 null application/problem+json 4.7782ms
+2025-01-26 16:02:47.340 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 157
+2025-01-26 16:02:47.340 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:47.345 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:47.345 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 400 null application/problem+json 5.4712ms
+2025-01-26 16:02:47.634 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 157
+2025-01-26 16:02:47.634 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:47.637 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:02:47.638 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 400 null application/problem+json 4.1179ms
+2025-01-26 16:03:15.512 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:57678/ProductCategories - application/json 150
+2025-01-26 16:03:15.548 +05:30 [INF] Executing endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:03:23.190 +05:30 [INF] Executed DbCommand (445ms) [Parameters=[@p0='?' (Size = 500), @p1='?' (Size = 255) (DbType = Binary), @p2='?' (Size = 255), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ProductCategory] ([CategoryDescription], [CategoryImage], [CategoryName], [CreateTime])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2025-01-26 16:03:27.021 +05:30 [INF] Executed endpoint 'HTTP: POST /ProductCategories'
+2025-01-26 16:03:27.022 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:57678/ProductCategories - 200 null application/json 11511.7855ms
+2025-01-26 16:03:37.164 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:57678/ProductCategories - null null
+2025-01-26 16:03:37.164 +05:30 [INF] Executing endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 16:03:37.596 +05:30 [INF] Executed DbCommand (430ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+2025-01-26 16:03:37.597 +05:30 [INF] Executed endpoint 'HTTP: GET /ProductCategories'
+2025-01-26 16:03:37.598 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:57678/ProductCategories - 200 null application/json 434.0308ms
+2025-01-26 16:04:08.491 +05:30 [INF] Request starting HTTP/1.1 PATCH http://localhost:57678/ProductCategories - application/json 145
+2025-01-26 16:04:08.491 +05:30 [INF] Executing endpoint 'HTTP: PATCH /ProductCategories'
+2025-01-26 16:04:13.435 +05:30 [INF] Executed DbCommand (285ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[CategoryDescription], [p].[CategoryImage], [p].[CategoryName], [p].[CreateTime]
+FROM [ProductCategory] AS [p]
+WHERE [p].[Id] = @__p_0
+2025-01-26 16:04:16.311 +05:30 [INF] Executed DbCommand (357ms) [Parameters=[@p4='?' (DbType = Int32), @p0='?' (Size = 500), @p1='?' (Size = 255) (DbType = Binary), @p2='?' (Size = 255), @p3='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [ProductCategory] SET [CategoryDescription] = @p0, [CategoryImage] = @p1, [CategoryName] = @p2, [CreateTime] = @p3
+OUTPUT 1
+WHERE [Id] = @p4;
+2025-01-26 16:04:17.832 +05:30 [INF] Executed endpoint 'HTTP: PATCH /ProductCategories'
+2025-01-26 16:04:17.832 +05:30 [INF] Request finished HTTP/1.1 PATCH http://localhost:57678/ProductCategories - 200 null application/json 9340.9673ms
