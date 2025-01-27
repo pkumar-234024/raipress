@@ -1,28 +1,21 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleHomeClick = (e) => {
-    e.preventDefault();
-    toggleMenu();
-    navigate("/home");
-  };
-
   return (
     <header className="header">
       <div className="header-container">
-        <div className="logo">
+        <Link to="/" className="logo">
           <span className="logo-text">RajShree</span>
           <span className="logo-text-accent">Press</span>
-        </div>
+        </Link>
 
         <div className="hamburger" onClick={toggleMenu}>
           <span className={`bar ${isMenuOpen ? "active" : ""}`}></span>
@@ -33,29 +26,34 @@ const Navbar = () => {
         <nav className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
           <ul>
             <li>
-              <a href="#" onClick={handleHomeClick}>
+              <Link to="/" onClick={toggleMenu}>
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#services" onClick={toggleMenu}>
+              <Link to="/products/category/all" onClick={toggleMenu}>
+                Products
+              </Link>
+            </li>
+            <li>
+              <Link to="/services" onClick={toggleMenu}>
                 Services
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#portfolio" onClick={toggleMenu}>
-                Portfolio
-              </a>
-            </li>
-            <li>
-              <a href="#about" onClick={toggleMenu}>
+              <Link to="/about" onClick={toggleMenu}>
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#contact" onClick={toggleMenu}>
+              <Link to="/contact" onClick={toggleMenu}>
                 Contact
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link to="/admin" onClick={toggleMenu}>
+                Admin
+              </Link>
             </li>
           </ul>
         </nav>

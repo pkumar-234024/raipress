@@ -15,13 +15,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/services" element={<Home />} />
+          <Route path="/about" element={<Home />} />
+          <Route path="/contact" element={<Home />} />
           <Route
             path="/products/category/:categoryId"
             element={<ProductListing />}
           />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/admin" element={<AdminPanel />} />
-          {/* Add other routes as needed */}
         </Routes>
         {/* <Footer /> */}
       </div>
