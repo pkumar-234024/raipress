@@ -9,18 +9,19 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <div>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/home" element={<Home />} />
           <Route
+            exact
             path="/products/category/:categoryId"
             element={<ProductListing />}
           />
-          <Route path="/product/:productId" element={<ProductDetail />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route exact path="/product/:productId" element={<ProductDetail />} />
+          <Route exact path="/admin" element={<AdminPanel />} />
           {/* Add other routes as needed */}
         </Routes>
         {/* <Footer /> */}
