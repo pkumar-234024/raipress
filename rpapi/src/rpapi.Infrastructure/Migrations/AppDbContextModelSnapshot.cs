@@ -105,6 +105,29 @@ namespace rpapi.Infrastructure.Migrations
 
                     b.ToTable("ProductCategory");
                 });
+
+            modelBuilder.Entity("rpapi.Core.Modal.ProductImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("ProductsImage")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductImages");
+                });
 #pragma warning restore 612, 618
         }
     }

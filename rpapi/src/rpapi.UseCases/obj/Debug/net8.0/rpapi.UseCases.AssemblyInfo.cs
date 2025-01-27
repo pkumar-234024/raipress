@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("rpapi.UseCases")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9bb90158bd57c23f644fa23823fc27f643dbf9d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8016513a4acdbef85ba8324900502b6c7a640453")]
 [assembly: System.Reflection.AssemblyProductAttribute("rpapi.UseCases")]
 [assembly: System.Reflection.AssemblyTitleAttribute("rpapi.UseCases")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

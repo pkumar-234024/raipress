@@ -1,7 +1,7 @@
 import { API_ENDPOINTS, API_HEADERS, IMAGE_CONFIG } from '../config/constants';
 import masterImage from '../assets/weddingcard/images.jfif';
 
-const API_URL = 'https://a6a5-2409-40e3-3013-5e8b-7056-2b3c-35a2-54a8.ngrok-free.app/Product';
+const API_URL = 'http://rajshreepress.runasp.net/Product';
 
 // Fetch all products by category ID
 export const getAllProducts = async (categoryId) => {

@@ -1,7 +1,7 @@
 import { API_BASE_URL as DEV_API_URL } from './constants.dev';
 import { API_BASE_URL as PROD_API_URL } from './constants.prod';
 
-export const API_BASE_URL = "https://a6a5-2409-40e3-3013-5e8b-7056-2b3c-35a2-54a8.ngrok-free.app";
+export const API_BASE_URL = "http://rajshreepress.runasp.net";
 
 // API Endpoints
 export const API_ENDPOINTS = {

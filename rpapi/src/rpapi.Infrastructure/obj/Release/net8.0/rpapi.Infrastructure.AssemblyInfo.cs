@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("rpapi.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f362b4b3068f75c5316452f2ff05fef784a24b5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8016513a4acdbef85ba8324900502b6c7a640453")]
 [assembly: System.Reflection.AssemblyProductAttribute("rpapi.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("rpapi.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

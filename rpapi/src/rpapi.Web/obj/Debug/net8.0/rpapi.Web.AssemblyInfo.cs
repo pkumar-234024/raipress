@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("rpapi.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b5035c57f5b753bd3ac3dd691b8d53ce661accd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8016513a4acdbef85ba8324900502b6c7a640453")]
 [assembly: System.Reflection.AssemblyProductAttribute("rpapi.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("rpapi.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

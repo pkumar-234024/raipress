@@ -21,6 +21,9 @@ public class AppDbContext : DbContext
   public DbSet<ProductCategory> ProductCategory => Set<ProductCategory>();
   public DbSet<Product> Product => Set<Product>();
 
+  public DbSet<ProductImages> ProductImages => Set<ProductImages>();
+
+
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);

@@ -2,7 +2,7 @@ import { API_ENDPOINTS, API_HEADERS, IMAGE_CONFIG } from '../config/constants';
 import masterImage from '../assets/cardCategory/wedding-cat.jfif';
 
 //const API_URL = 'http://rajshreepress.runasp.net/ProductCategories';
-const API_URL = 'https://a6a5-2409-40e3-3013-5e8b-7056-2b3c-35a2-54a8.ngrok-free.app/ProductCategories';
+const API_URL = 'http://rajshreepress.runasp.net/ProductCategories';
 
 // Helper function to convert base64 to byte array
 const base64ToByteArray = (base64String) => {
