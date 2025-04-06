@@ -23,3 +23,17 @@ dist-ssr
 *.sln
 *.sw?
 .vs/
+/rpapi/src/rpapi.Core/bin
+/rpapi/src/rpapi.Core/obj
+/rpapi/src/rpapi.Infrastructure/bin
+/rpapi/src/rpapi.Infrastructure/obj
+/rpapi/src/rpapi.UseCases/bin
+/rpapi/src/rpapi.UseCases/obj
+/rpapi/src/rpapi.Web/bin
+/rpapi/src/rpapi.Web/obj
+/rpapi/tests/rpapi.FunctionalTests/bin
+/rpapi/tests/rpapi.FunctionalTests/obj
+/rpapi/tests/rpapi.IntegrationTests/bin
+/rpapi/tests/rpapi.IntegrationTests/obj
+/rpapi/tests/rpapi.UnitTests/bin
+/rpapi/tests/rpapi.UnitTests/obj
